@@ -523,12 +523,7 @@ def show_comments_table():
 #streamlit
 with st.sidebar:
     st.title(":red[YOUTUBE DATA HARVESTING AND WAREHOUSING]")
-    st.header("Skill Take Away")
-    st.caption("Python Scripting")
-    st.caption("Data Collection")
-    st.caption("MongoDB")
-    st.caption("API Intergration")
-    st.caption("Data Management using MongoDB and SQL")
+  
 
 channel_id=st.text_input("Enter the channel ID")
 if  st.button("collect and store data"):
@@ -572,19 +567,20 @@ mydb = mysql.connector.connect(host='localhost',
                               )
 cursor = mydb.cursor()
 
-question=st.selectbox("Select your question",("1. All the videos and the channel name",
-                                                "2. Channels with most number of videos",
-                                                "3. 10 most viewed videos",
-                                                "4. Comments in each videos",
-                                                "5. Videos with highest likes",
-                                                "6. Likes of all videos",
-                                                "7. Views of each channel",
-                                                "8. Videos published in the year of 2022",
-                                                "9. Average duration of all videos in each channel",
-                                                "10. Videos with highest number of comments"))
+question=st.selectbox("Select your question",("1. What are the names of all the videos and their corresponding channels?",
+                                                "2. Which channels have the most number of videos, and how many videos do they have?",
+                                                "3. What are the top 10 most viewed videos and their respective channels?",
+                                                "4. How many comments were made on each video and what are their corresponding channel names?",
+                                                "5. Which videos have the highest number of likes and what are their corresponding channel names?",
+                                                "6. What is the total number of likes and dislikes for each video, and what are their corresponding video names?",
+                                                "7. What is the total number of views for each channel, and what are their corresponding channel names?",
+                                                "8. What are the names of all the channels that have published videos in the year
+2022?",
+                                                "9. What is the average duration of all videos in each channel, and what are their corresponding channel names?",
+                                                "10. Which videos have the highest number of comments, and what are their corresponding channel names?"))
 
 
-if question=="1. All the videos and the channel name":
+if question=="1. What are the names of all the videos and their corresponding channels?":
     query1='''select title as videos,channel_name as channelname from videos'''
     cursor.execute(query1)
     t1=cursor.fetchall()
@@ -592,7 +588,7 @@ if question=="1. All the videos and the channel name":
     mydb.commit()
     st.write(df)
 
-elif question=="2. Channels with most number of videos":
+elif question=="2. Which channels have the most number of videos, and how many videos do they have?":
     query2='''select channel_name as channelname,total_videos as no_videos from channel
                 order by total_videos desc'''
     cursor.execute(query2)
@@ -601,7 +597,7 @@ elif question=="2. Channels with most number of videos":
     mydb.commit()
     st.write(df2)
 
-elif question=="3. 10 most viewed videos":
+elif question=="3. What are the top 10 most viewed videos and their respective channels?":
     query3='''select views as views,channel_name as channelname,title as videotitle from videos
                 where views is not null order by views desc limit 10'''
     cursor.execute(query3)
@@ -610,7 +606,7 @@ elif question=="3. 10 most viewed videos":
     mydb.commit()
     st.write(df3)
     
-elif question=="4. Comments in each videos":
+elif question=="4. How many comments were made on each video and what are their corresponding channel names?":
     query4='''select comments as no_comments,title as videotitle from videos where comments is not null'''
     cursor.execute(query4)
     t4=cursor.fetchall()
@@ -618,7 +614,7 @@ elif question=="4. Comments in each videos":
     mydb.commit()
     st.write(df4)
 
-elif question=="5. Videos with highest likes":
+elif question=="5. Which videos have the highest number of likes and what are their corresponding channel names?":
     query5='''select title as videotitle,channel_name as channelname,Likes as likecount
                 from videos where likes is not null order by likes desc'''
     cursor.execute(query5)
@@ -627,7 +623,7 @@ elif question=="5. Videos with highest likes":
     mydb.commit()
     st.write(df5)
 
-elif question=="6. Likes of all videos":
+elif question=="6. What is the total number of likes and dislikes for each video, and what are their corresponding video names?":
     query6='''select Likes as likecount,title as videotitle from videos'''
     cursor.execute(query6)
     t6=cursor.fetchall()
@@ -635,7 +631,7 @@ elif question=="6. Likes of all videos":
     mydb.commit()
     st.write(df6)
 
-elif question=="7. Views of each channel":
+elif question=="7. What is the total number of views for each channel, and what are their corresponding channel names?":
     query7='''select Channel_name as channelname,views as totalviews from channel'''
     cursor.execute(query7)
     t7=cursor.fetchall()
@@ -643,7 +639,8 @@ elif question=="7. Views of each channel":
     mydb.commit()
     st.write(df7)
 
-elif question=="8. Videos published in the year of 2022":
+elif question=="8. What are the names of all the channels that have published videos in the year
+2022?":
     query8='''select title as video_title,Published_date as videorelease,channel_name as channelname from videos
                 where extract(year from Published_date)=2022'''
     cursor.execute(query8)
@@ -652,7 +649,7 @@ elif question=="8. Videos published in the year of 2022":
     mydb.commit()
     st.write(df8) 
 
-elif question=="9. Average duration of all videos in each channel":
+elif question=="9. What is the average duration of all videos in each channel, and what are their corresponding channel names?":
     query9='''select channel_name as channelname,SEC_TO_TIME(AVG(TIME_TO_SEC(duration))) AS averageduration from videos group by channel_name'''
     cursor.execute(query9)
     t9=cursor.fetchall()
@@ -668,7 +665,7 @@ elif question=="9. Average duration of all videos in each channel":
     mydb.commit()
     st.write(df1) 
 
-elif question=="10. Videos with highest number of comments":
+elif question=="10. Which videos have the highest number of comments, and what are their corresponding channel names?":
     query10='''select title as videotitle,channel_name as channelname, comments as comments from videos where comments is
                 not null order by comments desc'''
     cursor.execute(query10)

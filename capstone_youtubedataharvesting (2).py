@@ -305,11 +305,7 @@ def channel_details(channel_id):
 # In[27]:
 
 
-#make the grade: UC9WcY62gRCFKw5_xZYbG-dA
-#rishipedia: UCaFBtetU2RHxwnDRDsNHejA
-#jumpcuts: UCpPOf9BQPwa4K11Zjxu1ZPw
-#Vj Siddhu Vlogs: UCJcCB-QYPIBcbKcBQOTwhiA
-#
+
 
 
 # In[28]:
